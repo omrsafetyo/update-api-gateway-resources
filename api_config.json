@@ -1,0 +1,28 @@
+{
+    "Region": "us-west-2",
+    "EndpointId": "abcdefg123",
+    "SwaggerUri": "https://myapi.organization.com/swagger/swagger.json",
+    "ApiBaseUri": "https://myapi.organization.com/api",
+    "ImportMode": "merge",
+    "StringReplaceDictionary": {
+        "{version}": "1"
+    },
+    "Parameters" : {
+        "endpointConfigurationTypes" : "REGIONAL"
+    },
+    "DeploymentStages": [
+        "prod"
+    ],
+    "DefaultAuthorization": {
+        "authorizationType": "AWS_IAM",
+        "apiKeyRequired": false
+    },
+    "DefaultIntegration": {
+        "type": "HTTP_PROXY", 
+		"connectionType": "VPC_LINK",
+        "connectionId" : "fakeid", 
+		"passthroughBehavior": "WHEN_NO_MATCH", 
+		"timeoutInMillis": 29000, 
+		"cacheKeyParameters": []
+    }
+}
