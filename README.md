@@ -13,9 +13,11 @@ This is a sample configuration json file.  This sits in the same directory where
 When the lambda is triggered, it looks for this file in the same directory, and this is used to specify the default configuration for new resources.
 The lambda is configured so that you can drop a swagger.json in any location, so different stages can be applied by having different folders configured with their own api_config.json.  For instance, you can have your bucket setup as follows:
 
-/MyFirstApi/Stage
-/MyFirstApi/Prod
-/MySecondApi/Prod
+```
+/MyFirstApi/Stage 
+/MyFirstApi/Prod 
+/MySecondApi/Prod 
+```
 
 If you drop a swagger.json in /MyFirstApi/Stage, it will look for a file called /MyFirstApi/Stage/
 
