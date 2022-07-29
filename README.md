@@ -28,8 +28,15 @@ This is a sample of what the s3 trigger event would look like when you drop a sw
 ### ps1 files
 A couple helper files.
 build-zips.ps1 will package any subdirectory in the current directory as a .zip.  This is for the purpose of packaging the update-api-gateway-resources.py into a zip that can be imported into Lambda.
+``` powershell
+./build-zips.ps1
+```
 
 UploadTo-s3.ps1 is pretty self explanatory, but will upload any .yml and .zip files to the specified s3 bucket/folder.  This is for the purpose of uploading your files for use by cloud formation, etc.
+
+``` powershell
+.\UploadTo-s3.ps1 -AWS_ACCESS_KEY_ID $Env:AWS_ACCESS_KEY_ID -AWS_SECRET_ACCESS_KEY $Env:AWS_SECRET_ACCESS_KEY -AWS_SESSION_TOKEN $Env:AWS_SESSION_TOKEN -BucketBasePath my-already-existing-bucket/folder/or/key
+```
 
 ### Cloud formation template
 TODO:  Just need to build out a template to build the solution - TBD

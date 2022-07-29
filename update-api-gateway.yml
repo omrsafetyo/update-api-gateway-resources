@@ -6,7 +6,7 @@ Parameters:
     Type: String
     Description: The S3 Bucket containing (this) cloud formation template and lambda code zip file
     ConstraintDescription: Required field
-    Default: !Sub source-code-bucket-${AWS::AccountId}
+    Default: !Sub source-code-bucket
 
   SourceCodeZipFileKey:
     Type: String
