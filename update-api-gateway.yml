@@ -6,7 +6,7 @@ Parameters:
     Type: String
     Description: The S3 Bucket containing (this) cloud formation template and lambda code zip file
     ConstraintDescription: Required field
-    Default: !Sub source-code-bucket
+    Default: source-code-bucket
 
   SourceCodeZipFileKey:
     Type: String
@@ -34,7 +34,6 @@ Conditions: {}
 
 Resources:
   S3Bucket:
-    DependsOn: InvokeLambdaPermission
     Type: 'AWS::S3::Bucket'
     DeletionPolicy: Delete
     Properties:
@@ -75,9 +74,11 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                  - "s3:*"
+                  - s3:GetObject*
+                  - s3:PutObject*
                 Resource: 
-                  - !GetAtt S3Bucket.Arn
+                  - !Sub "arn:aws:s3:::api-gateway-definition-import-automation-${AWS::AccountId}"
+                  - !Sub "arn:aws:s3:::api-gateway-definition-import-automation-${AWS::AccountId}/*"
       Tags: []
 
   UpdateApiGatewayLambdaFunction:
@@ -89,7 +90,7 @@ Resources:
       Description: Lambda function for importing API Gateway
       Environment:
         Variables:
-          DEFAULT_REGION: !Ref S3Region
+          DEFAULT_REGION: !Ref DefaultApiGatewayRegion
       Handler: update-api-gateway-resources.lambda_handler
       MemorySize: 128
       Role: !GetAtt 
@@ -107,7 +108,7 @@ Resources:
         - Arn
       Principal: s3.amazonaws.com
       SourceAccount: !Ref 'AWS::AccountId'
-      SourceArn: !Sub 'api-gateway-definition-import-automation-${AWS::AccountId}'
+      SourceArn: !Sub "arn:aws:s3:::api-gateway-definition-import-automation-${AWS::AccountId}"
 
 Outputs:
   BucketName:
