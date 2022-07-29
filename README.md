@@ -38,5 +38,7 @@ UploadTo-s3.ps1 is pretty self explanatory, but will upload any .yml and .zip fi
 .\UploadTo-s3.ps1 -AWS_ACCESS_KEY_ID $Env:AWS_ACCESS_KEY_ID -AWS_SECRET_ACCESS_KEY $Env:AWS_SECRET_ACCESS_KEY -AWS_SESSION_TOKEN $Env:AWS_SESSION_TOKEN -BucketBasePath my-already-existing-bucket/folder/or/key
 ```
 
-### Cloud formation template
-TODO:  Just need to build out a template to build the solution - TBD
+### update-api-gateway.yml
+Cloud formation template for building out the application.  Sample commandline for importing:
+aws cloudformation deploy --template-file update-api-gateway.yml --stack-name api-gateway-import-stack --parameter-overrides DefaultApiGatewayRegion=us-west-2 SourceCodeS3Bucket=bucket-where-zip-is SourceCodeZipFileKey=/location/in/bucket/update-api-gateway-resources.zip --capabilities CAPABILITY_IAM
+
