@@ -328,7 +328,7 @@ def lambda_handler(event, context):
             mode = config.get('ImportMode',def_mode)
             parameters = config.get('Parameters',def_parameters)
             replaceDictionary = config.get('StringReplaceDictionary',{})
-            deploymentStage = config.get('DeploymentStage',None)
+            deploymentStages = config.get('DeploymentStages',None)
            
             swaggerjson = get_s3_file_contents(bucketName, key)
             swaggerjsonPreviousKey = "{}.last".format(key)
@@ -410,8 +410,8 @@ def lambda_handler(event, context):
                 copy_s3_item(bucketName, bucketName, key, swaggerjsonPreviousKey)
                 
             # If stages are specified for deployment, deploy to each specified stage
-            if update_resource_result and deploymentStage != None:
-                for stage in deploymentStage:
+            if update_resource_result and deploymentStages != None:
+                for stage in deploymentStages:
                     deploy_api_endpoint(region, endpointId, stage)
                 
     else:
